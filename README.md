@@ -1,0 +1,3 @@
+# MyOwnSamples_001
+個人的な練習サンプル集その1
+①JdbcForPostgreSQL_Sample：JDBCを活用したPostgreSQLから特定のデータを検索して取ってくるコード
