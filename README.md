@@ -10,6 +10,6 @@
 ※ShoppingScheduleApp_Akky配下
 
 プログラム説明：
-　・Mainから実行すると、txtRepository配下のcart.txtを読み取り、
+　Mainから実行すると、txtRepository配下のcart.txtを読み取り、
  yかnをコマンドから入力するとcart.txt内の商品一覧と合計金額を表示してくれるアプリ
  →現在、メール自動通知機能追加実装を計画＆実証中
