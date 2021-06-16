@@ -8,11 +8,11 @@ public class Product {
 	
 //	private int id;
 	private String title;
-	private double price;
+	private int price;
 	
 	public Product() {}
 	
-	public Product(String title,double price) {
+	public Product(String title,int price) {
 //		this.id = id;
 		this.title = title;
 		this.price = price;
@@ -27,11 +27,11 @@ public class Product {
 		
 	}
 	
-	public Double getPrice() {
+	public int getPrice() {
 		return price;
 	}
 	
-	public void setPrice(Double price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	

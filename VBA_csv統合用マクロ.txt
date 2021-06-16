@@ -1,0 +1,84 @@
+' [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+' [[                                                        ]]
+' [[ 複数のCSVファイルを取り込んで、統合するVBAマクロ       ]]
+' [[ (VBAへ張り付ければ、そのまま使用可能)                  ]]
+' [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+Sub ReadMultiCSVFiles()
+    ' [[ 変数定義 ]]
+    Dim varFileName As Variant
+    Dim CSVWorkSheet As Worksheet
+    Dim NewWorkSheet As Worksheet
+    Dim SheetName As String
+   
+    ' [[ コピー範囲の変数 ]]
+    Dim R1 As Integer
+    Dim R2 As Integer
+    Dim C1 As Integer
+    Dim C2 As Integer
+   
+    ' [[ 複数ファイルパス名を取得 ]]
+    varFileName = Application.GetOpenFilename(FileFilter:="CSVファイル(*.csv),*.csv", _
+                                        Title:="CSVファイルの選択", MultiSelect:=True)
+   
+    ' [[ ファイルパス取得できなかったら ]]
+    If IsArray(varFileName) = False Then
+        Exit Sub
+    End If
+ 
+    ' [[ ファイルパス取得できたら ]]
+    For Each Filename In varFileName
+        ' [[ ファイルパスからファイル名を取得 ]]
+        SheetName = Dir(Filename)
+        ' [[ ファイル名で新しいシート作成 ]]
+        Set NewWorkSheet = CreateWorkSheet(SheetName)
+       
+        ' [[ CSVファイルを開く ]]
+        Workbooks.Open Filename:=Filename
+        Set CSVWorkSheet = ActiveSheet
+       
+        ' [[ 有効セルの範囲取得 ]]
+        R1 = CSVWorkSheet.UsedRange.Row
+        C1 = CSVWorkSheet.UsedRange.Column
+        R2 = CSVWorkSheet.UsedRange.End(xlDown).Row
+        C2 = CSVWorkSheet.UsedRange.End(xlToRight).Column
+       
+        ' [[ 有効セルの範囲のコピー ]]
+        CSVWorkSheet.UsedRange.Copy Destination:=NewWorkSheet.Range(NewWorkSheet.Cells(R1, C1), NewWorkSheet.Cells(R2, C2))
+       
+        ' [[ CSVファイルを閉じる(保存無し) ]]
+        ActiveWorkbook.Close SaveChanges:=False
+    Next
+   
+End Sub
+
+' [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+' [[                                                                            ]]
+' [[ ワークシート名を指定したワークシートの作成                                 ]]
+' [[                                                                            ]]
+' [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+Function CreateWorkSheet(WorkSheetName As String) As Worksheet
+
+    ' 変数定義
+    Dim NewWorkSheet As Worksheet
+    Dim iCheckSameName As Integer
+   
+    ' ワークシートの作成
+    ' ※一番最後に挿入
+    Set NewWorkSheet = Worksheets.Add(After:=Worksheets(Worksheets.Count))
+   
+    ' 同じ名前ワークシートが無いか確認
+    iCheckSameName = 0
+    For Each WS In Sheets
+     If WS.Name = WorkSheetName Then
+       MsgBox "ワークシート名：" + WorkSheetName + " この名前は既に使われています。"
+       iCheckSameName = 1
+     End If
+    Next
+   
+    '同じ名前のワークシートがなければ
+    If iCheckSameName = 0 Then
+        NewWorkSheet.Name = WorkSheetName
+        Set CreateWorkSheet = NewWorkSheet
+    End If
+   
+End Function

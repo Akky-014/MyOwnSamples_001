@@ -3,9 +3,22 @@ package main;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TotalScreen {
+import dto.Product;
+
+public class Main {
 	public static void main(String[] args) throws Exception {
+		
+		//ProductクラスのListを定義
+		List<Product> Products = new ArrayList<Product>();
+		
+		//ProductクラスのDTOを作成
+//		Product product = new Product();
+		
+		//insertingpProductsメソッド呼び出し
+		Products = TxtReader.insertingpProducts(Products);
 
 		//各変数を定義
 		InputStreamReader isr = new InputStreamReader(System.in);
@@ -15,6 +28,11 @@ public class TotalScreen {
 			//初期メッセージ表示
 			System.out.println("-------****Shopping List****-------");
 			System.out.println("---購入リストをチェックします。買う予定のものは以上ですか？---");
+			
+			//購入物リストを表示
+			System.out.println("-☆購入リスト-");
+			ShoppingListShower.cartList(Products);
+			
 			System.out.println("---「はい」ならyを、「いいえ」ならnを入力して下さい。---");
 			
 			//breakしない限り繰り返す
@@ -31,7 +49,7 @@ public class TotalScreen {
 			//金額を条件分岐次第で表示する。yなら表示。nならキャンセル。それ以外なら入力やり直し
 			if( ans.equals("y")) {
 				System.out.println("それでは、合計金額を表示します。");
-				double price = CulculatingStreams.totalPrice();
+				int price = CulculatingStreams.totalPrice(Products);
 				System.out.println("---合計金額は、"+ price + "円です---");
 				break a;
 			}else if( ans.equals("n")){
