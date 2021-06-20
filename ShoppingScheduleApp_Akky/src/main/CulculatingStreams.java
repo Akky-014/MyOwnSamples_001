@@ -1,6 +1,6 @@
 package main;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import dto.Product;
@@ -11,12 +11,11 @@ import dto.Product;
  */
 public class CulculatingStreams {
 	
-	public static double totalPrice() {
-	double total = Arrays.asList(
-			new Product("梅昆布おにぎり",100),
-			new Product("肉まん",130),
-			new Product("ホットドッグ",350)
-			).stream().collect(Collectors.summingDouble(Product::getPrice));
+	public static int totalPrice(List<Product> Products) {
+		
+	int total = Products
+			.stream().collect(Collectors.summingInt(Product::getPrice));
 	return total;
+	
 	}
 }
