@@ -1,0 +1,123 @@
+<web-app>
+	<servlet>
+		<servlet-name>listMapping</servlet-name>
+		<servlet-class>servlet.ListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>listMapping</servlet-name>
+		<url-pattern>/list</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>loginMapping</servlet-name>
+		<servlet-class>servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>loginMapping</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>insertIniDataMapping</servlet-name>
+		<servlet-class>servlet.InsertIniDataServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>insertIniDataMapping</servlet-name>
+		<url-pattern>/insertIniData</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>insertMapping</servlet-name>
+		<servlet-class>servlet.InsertServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>insertMapping</servlet-name>
+		<url-pattern>/insert</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>deleteMapping</servlet-name>
+		<servlet-class>servlet.DeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteMapping</servlet-name>
+		<url-pattern>/delete</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>updateMapping</servlet-name>
+		<servlet-class>servlet.UpdateServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateMapping</servlet-name>
+		<url-pattern>/update</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>detailMapping</servlet-name>
+		<servlet-class>servlet.DetailServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>detailMapping</servlet-name>
+		<url-pattern>/detail</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>searchMapping</servlet-name>
+		<servlet-class>servlet.SearchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>searchMapping</servlet-name>
+		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>insertIntoCartMapping</servlet-name>
+		<servlet-class>servlet.InsertIntoCartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>insertIntoCartMapping</servlet-name>
+		<url-pattern>/insertIntoCart</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>showCartMapping</servlet-name>
+		<servlet-class>servlet.ShowCartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>showCartMapping</servlet-name>
+		<url-pattern>/showCart</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>buyConfirmMapping</servlet-name>
+		<servlet-class>servlet.BuyConfirmServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>buyConfirmMapping</servlet-name>
+		<url-pattern>/buyConfirm</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>showOrderedItemMapping</servlet-name>
+		<servlet-class>servlet.ShowOrderedItemServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>showOrderedItemMapping</servlet-name>
+		<url-pattern>/showOrderedItem</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>logoutMapping</servlet-name>
+		<servlet-class>servlet.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>logoutMapping</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>1</session-timeout>
+	</session-config>
+
+</web-app>

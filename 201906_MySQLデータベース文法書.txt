@@ -1,0 +1,64 @@
+My SQL データベース
+
+ユーザー名：root パスワード：root123  SampleDB
+
+データベース名：SampleDB
+
+①データベース作成
+create database SampleDB;
+
+1.テーブル作成
+②会員情報管理テーブル
+CREATE TABLE member_info (member_id INT(10) PRIMARY KEY AUTO_INCREMENT, member_name VARCHAR(20),member_birthday DATE, member_sex VARCHAR(1),member_address VARCHAR(100), member_phone VARCHAR(11), member_mail VARCHAR(100),member_password VARCHAR(20),member_reason VARCHAR(1000) );
+
+③メニュー情報管理テーブル
+CREATE TABLE menu_info (menu_id INT(10) PRIMARY KEY AUTO_INCREMENT,menu_name VARCHAR(20), menu_price INT(5),menu_time VARCHAR(1) );
+
+④スタッフ情報管理テーブル
+CREATE TABLE stuff_info (stuff_id INT(10) PRIMARY KEY AUTO_INCREMENT, stuff_password VARCHAR(20) ,stuff_name VARCHAR(20),stuff_authority VARCHAR(1) );
+
+⑤出勤予定情報管理テーブル
+CREATE TABLE attendance_info (attendance_id INT(10) PRIMARY KEY AUTO_INCREMENT,attendance_day DATE, stuff_id INT(10), FOREIGN KEY (stuff_id) REFERENCES stuff_info(stuff_id) )ENGINE=InnoDB;
+
+⑥予約情報管理テーブル
+CREATE TABLE reservation_info (reservation_id INT(10) PRIMARY KEY AUTO_INCREMENT, reservation_daytime DATETIME, menu_id INT(10), member_id INT(10), name VARCHAR(20), sex VARCHAR(1), phone VARCHAR(11), e_mail VARCHAR(100),stuff_id INT(10),FOREIGN KEY (menu_id) REFERENCES menu_info(menu_id),FOREIGN KEY (stuff_id) REFERENCES stuff_info(stuff_id),FOREIGN KEY (member_id) REFERENCES member_info(member_id), FOREIGN KEY (stuff_id) REFERENCES stuff_info(stuff_id) )ENGINE=InnoDB;
+
+2.初期データを挿入
+
+A.会員管理情報管理テーブルへ初期会員「フレディ・マーキュリー」、「レディー・ガガ」
+INSERT　INTO　member_info(member_id , member_name ,member_birthday , member_sex ,member_address , member_phone , member_mail ,member_password ,member_reason ) VALUES ( NULL, 'フレディ・マーキュリー',1946/09/05, '1', 'イギリス・ロンドン・ケンジントン','12345678901','americanidiot.41@gmail.com','bohemian_rhapsody','WE WILL ROCK YOU!!');
+INSERT　INTO　member_info(member_id , member_name ,member_birthday , member_sex ,member_address , member_phone , member_mail ,member_password ,member_reason ) VALUES ( NULL, 'レディー・ガガ',1986/03/28 , '2', ' アメリカ合衆国 ニューヨーク州 ニューヨーク ','09876543210','bornthisway.PorkerFACE1234@gmail.com','born_this_way','RADIO GAGA!!') ;
+
+B.メニュー情報管理テーブル(カット、パーマ、カラー）
+INSERT　INTO　menu_info(menu_id,menu_name,menu_price,menu_time) VALUES ( NULL, 'カット',5000,'0') ;
+INSERT　INTO　menu_info(menu_id,menu_name,menu_price,menu_time) VALUES ( NULL, 'パーマ',6000,'1') ;
+INSERT　INTO　menu_info(menu_id,menu_name,menu_price,menu_time) VALUES ( NULL, 'カラー',4000,'1') ;
+INSERT　INTO　menu_info(menu_id,menu_name,menu_price,menu_time) VALUES ( NULL, 'カット・パーマ',11000,'2') ;
+INSERT　INTO　menu_info(menu_id,menu_name,menu_price,menu_time) VALUES ( NULL, 'カット・カラー',9000,'2') ;
+INSERT　INTO　menu_info(menu_id,menu_name,menu_price,menu_time) VALUES ( NULL, 'パーマ・カラー',10000,'3') ;
+INSERT　INTO　menu_info(menu_id,menu_name,menu_price,menu_time) VALUES ( NULL, 'カット・パーマ・カラー',15000,'4') ;
+
+C.スタッフ情報管理テーブル（初期店員：白石大、栗田晃成、半澤直行、ピエール瀧、新井浩文）
+INSERT INTO stuff_info (stuff_id , stuff_password ,stuff_name ,stuff_authority) VALUES (NULL,'kanda_it','白石大','0');
+INSERT INTO stuff_info (stuff_id , stuff_password ,stuff_name ,stuff_authority) VALUES (NULL,'kanda_01','栗田晃成','1');
+INSERT INTO stuff_info (stuff_id , stuff_password ,stuff_name ,stuff_authority) VALUES (NULL,'kanda_02','半澤直行','1');
+INSERT INTO stuff_info (stuff_id , stuff_password ,stuff_name ,stuff_authority) VALUES (NULL,'kanda_03','ピエール瀧','1');
+INSERT INTO stuff_info (stuff_id , stuff_password ,stuff_name ,stuff_authority) VALUES (NULL,'kanda_04','新井浩文','1');
+
+D.出勤予定情報管理テーブル
+INSERT　INTO　attendance_info(attendance_id,attendance_day,stuff_id) VALUES ( NULL, '2019-04-08',4);
+INSERT　INTO　attendance_info(attendance_id,attendance_day,stuff_id) VALUES ( NULL, '2019-04-19',4);
+INSERT　INTO　attendance_info(attendance_id,attendance_day,stuff_id) VALUES ( NULL, '2019-04-11',4);
+INSERT　INTO　attendance_info(attendance_id,attendance_day,stuff_id) VALUES ( NULL, '2019-04-29',5);
+INSERT　INTO　attendance_info(attendance_id,attendance_day,stuff_id) VALUES ( NULL, '2019-04-22',4);
+INSERT　INTO　attendance_info(attendance_id,attendance_day,stuff_id) VALUES ( NULL, '2019-04-21',5);
+INSERT　INTO　attendance_info(attendance_id,attendance_day,stuff_id) VALUES ( NULL, '2019-04-26',4);
+
+E.予約情報管理テーブル
+INSERT INTO reservation_info (reservation_id , reservation_daytime, menu_id , member_id , name , sex , phone , e_mail ,stuff_id) VALUES (NULL,'2019-04-08 14:00',1,NULL,'ミック・ジャガー','1','55566677788','americanidiot.41@gmail.com',NULL);
+INSERT INTO reservation_info (reservation_id , reservation_daytime, menu_id , member_id , name , sex , phone , e_mail ,stuff_id) VALUES (NULL,'2019-04-26 10:00',6,1,NULL,NULL,NULL,NULL,4);
+
+
+
+
+
