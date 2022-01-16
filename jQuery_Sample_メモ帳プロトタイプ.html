@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+    <title>メモ帳</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" id="id_viewport" content="width=device-width" >
+
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <style type="text/css">
+        .a-click-replaced {
+            text-decoration: none;
+            border: none;
+        }
+        .img-option-icon {
+            width: 24px;
+            height: 24px;
+        }     
+
+        .div-float {
+            float: left;
+        }
+        .div-float-end {
+            float: none;
+            clear: both;
+        }
+    </style>
+    <meta http-equiv="Content-Script-Type" content="text/javascript; charset=UTF-8" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <script language="JavaScript">
+        $(document).ready(function(){
+            var input_text = $("#id_notes");
+            var noticeAndFadeout = function( str ){
+                $("#id_user_notice").text( str );
+                window.setTimeout( function(){ $("#id_user_notice").text(""); }, 5000 );
+            };
+            var span_length_of_text = $("#id_string_length");
+
+
+            // 変更が発生したら文字数カウント。
+            input_text.bind( "input" ,function(){
+                span_length_of_text.text( input_text.val().length )
+            });
+
+            // テキスト消去ボタン
+            $("#id_clear_text").click(function(){
+                input_text.val("");
+                span_length_of_text.text( "0" ); // 文字数を明示的にゼロ表示。
+                noticeAndFadeout("メモを削除しました。");
+            });
+
+            // 全コピーボタン
+            $("#id_copy_all").click(function(){
+                input_text.select();
+                document.execCommand('copy');
+                noticeAndFadeout("クリップボードへコピーしました。");
+            });
+        });
+    </script>
+    <script>
+		$(document).ready(function(){
+			$(".base-area").css("color", "red");
+		});
+	</script>
+</head>
+<body>
+<div class="base-area">
+    <div style="width:100%;">
+        <div class="div-float" style="margin-right: -80px; width:100%;">
+            <form>
+            <!-- テキストエリアにmarginが効かない（涙） -->
+            <textarea id="id_notes" rows="14" cols="32" style="width: 75%;"></textarea>
+            </form>
+        </div>
+        <div class="div-float" style="width:60px; padding: 10px; font-size:smaller;">
+            <div id="id_copy_all">
+                <a href="javascript:void(0);" class="a-click-replaced   button">
+                <!-- img タグなどでアイコンを適当に配置
+                    <img class="img-option-icon" src="./icon_copy.png"><br>
+                 -->
+                <span>全コピー</span>
+                </a>
+            </div>
+            <br>
+            <div id="id_clear_text">
+                <a href="javascript:void(0);" class="a-click-replaced">
+                <span>消去</span>
+                </a>
+            </div>
+            <br>
+        </div>
+        <div class="div-float-end"></div>
+    </div>
+    <div style="font-size: smaller;">
+        合計文字数： <span id="id_string_length"></span>
+    </div>
+    <div>
+        <span id="id_user_notice" style="font-size: smaller; background-color: #ffffaa;"></span> &nbsp;
+    </div>
+
+    <hr width="100%"></hr>
+    <div style="color: #777777; font-size: smaller;">
+        Javascript+CookieON Recommended (Operations: Chrome 47-) <br>
+    </div>
+</div>
+</body>
+</html>
