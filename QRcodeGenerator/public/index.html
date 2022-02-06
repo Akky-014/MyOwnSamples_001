@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>QRコード自動作成アプリ</title>
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-<meta charset="utf-8">
-</head>
+	<head>
+		<title>QRコード自動作成アプリ</title>
+			<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+			<meta charset="utf-8">
+			<link href="style.css" rel="stylesheet" type="text/css">
+	</head>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
@@ -12,22 +13,19 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<body>
+<body class = "backGround">
 
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3 text-center"
-			style="background-color: #e2e2e2;">
-			<h1>QRコード自動作成アプリ</h1>
+		<div class="col-md-6 col-md-offset-3 text-center">
+			<h1 id="title">QRコード自動作成アプリ</h1>
 
 			<div>
 				<p>QRに変換したい文字もしくは数字を入力してください</p>
 				<p>
-					<textarea name="txt" style="height: 50px; width: 350px;"
-						required="required"></textarea>
+					<textarea name="txt" style="height: 50px; width: 350px;" required="required"></textarea>
 				</p>
-
-				<p>
-					イメージサイズ : <select name="size">
+				<p>イメージサイズ : 
+					<select name="size">
 						<option value="100x100" selected>100x100</option>
 						<option value="200x200">200x200</option>
 						<option value="300x300">300x300</option>
@@ -43,8 +41,9 @@
 
 		</div>
 	</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-		<script type="text/javascript" src="jquery.qrcode.min.js"></script>
-		<script type="text/javascript" src="qrGenerator.js"></script>
-	</body>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.qrcode.min.js"></script>
+	<script type="text/javascript" src="qrGenerator.js"></script>
+</body>
 </html>
