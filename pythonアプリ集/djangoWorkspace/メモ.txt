@@ -1,0 +1,6 @@
+ブログ系統アプリ自作サンプル集
+
+python -m django startproject mysite
+
+akinari14
+purplehaze14

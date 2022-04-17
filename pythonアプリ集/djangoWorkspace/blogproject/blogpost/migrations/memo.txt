@@ -1,0 +1,7 @@
+akinari
+purplehaze14
+
+C (Create) CreateView
+R (Red) ListView DetailView
+U (Update) UpdateView
+D (Delete) DeleteView
