@@ -27,13 +27,30 @@
         <TableRow
             android:gravity="center_vertical">
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:src="@drawable/fish_character_unagi"/>
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:src="@drawable/fish_isaki"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30 point"
+                android:text="10 point"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:paddingLeft="10dp"/>
+        </TableRow>
+
+        <TableRow
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="60dp"
+                android:src="@drawable/fish_maguro"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 point"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
@@ -44,13 +61,13 @@
             android:gravity="center_vertical"
             android:layout_marginTop="20dp">
             <ImageView
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:src="@drawable/fish_maguro"/>
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/fish_character_unagi"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10 point"
+                android:text="50 point"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
@@ -113,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="START"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="70dp"
         android:backgroundTint="@color/green"
         android:onClick="startGame"/>
 

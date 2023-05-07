@@ -1,5 +1,8 @@
 package com.example.akkunscatchthaballs;
 
+import static com.example.akkunscatchthaballs.SettingKt.*;
+
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -23,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView scoreLabel;
     private TextView startLabel;
     private ImageView box;
-    private ImageView orange;
-    private ImageView pink;
-    private ImageView black;
+    private ImageView isaki;
+    private ImageView tuna;
+    private ImageView eel;
+    private ImageView bomb;
     private ImageView fukuro;
     private ImageView kan;
 
@@ -37,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
     // 位置
     private float boxY;
-    private float orangeX;
-    private float orangeY;
-    private float pinkX;
-    private float pinkY;
-    private float blackX;
-    private float blackY;
+    private float isakiX;
+    private float isakiY;
+    private float tunaX;
+    private float tunaY;
+    private float eelX;
+    private float eelY;
+    private float bombX;
+    private float bombY;
     private float kanX;
     private float kanY;
     private float fukuroX;
@@ -50,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
     // スピード
     private int boxSpeed;
-    private int orangeSpeed;
-    private int pinkSpeed;
-    private int blackSpeed;
+    private int isakiSpeed;
+    private int tunaSpeed;
+    private int eelSpeed;
+    private int bombSpeed;
     private int fukuroSpeed;
     private int kanSpeed;
 
@@ -79,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // セッティングインスタンスを作成
+        Setting setting = settingMain();
+
         Typeface ronde = Typeface.createFromAsset(getAssets(), "pugnomincho-mini.otf");
 
         soundPlayer = new SoundPlayer(this);
@@ -88,9 +98,10 @@ public class MainActivity extends AppCompatActivity {
         startLabel.setTypeface(ronde);
 
         box = findViewById(R.id.box);
-        orange = findViewById(R.id.orange);
-        pink = findViewById(R.id.pink);
-        black = findViewById(R.id.black);
+        isaki = findViewById(R.id.isaki);
+        tuna = findViewById(R.id.tuna);
+        eel = findViewById(R.id.eel);
+        bomb = findViewById(R.id.bomb);
         fukuro = findViewById(R.id.fukuro);
         kan = findViewById(R.id.kan);
 
@@ -103,23 +114,27 @@ public class MainActivity extends AppCompatActivity {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        boxSpeed = Math.round(screenHeight / 60f);
-        orangeSpeed = Math.round(screenWidth / 60f);
-        pinkSpeed = Math.round(screenWidth / 45f);
-        blackSpeed = Math.round(screenWidth / 100f);
-        fukuroSpeed = Math.round(screenWidth / 80f);
-        kanSpeed = Math.round(screenWidth / 90f);
+        // スピードをセット
+        boxSpeed = Math.round(screenHeight / setting.getBoxSpeed());
+        isakiSpeed = Math.round(screenWidth / setting.getIsakiSpeed());
+        tunaSpeed = Math.round(screenWidth / setting.getTunaSpeed());
+        eelSpeed = Math.round(screenWidth / setting.getEelSpeed());
+        bombSpeed = Math.round(screenWidth / setting.getBombSpeed());
+        fukuroSpeed = Math.round(screenWidth / setting.getFukuroSpeed());
+        kanSpeed = Math.round(screenWidth / setting.getKanSpeed());
 
-        orange.setX(-80.0f);
-        orange.setY(-80.0f);
-        pink.setX(-80.0f);
-        pink.setY(-80.0f);
-        black.setX(-80.0f);
-        black.setY(-80.0f);
-        fukuro.setX(-80.0f);
-        fukuro.setY(-80.0f);
-        kan.setX(-80.0f);
-        kan.setY(-80.0f);
+        isaki.setX(setting.getXyDefault());
+        isaki.setY(setting.getXyDefault());
+        tuna.setX(setting.getXyDefault());
+        tuna.setY(setting.getXyDefault());
+        eel.setX(setting.getXyDefault());
+        eel.setY(setting.getXyDefault());
+        bomb.setX(setting.getXyDefault());
+        bomb.setY(setting.getXyDefault());
+        fukuro.setX(setting.getXyDefault());
+        fukuro.setY(setting.getXyDefault());
+        kan.setX(setting.getXyDefault());
+        kan.setY(setting.getXyDefault());
 
         scoreLabel.setText("Score : 0");
 
@@ -127,45 +142,54 @@ public class MainActivity extends AppCompatActivity {
         countdownTextView = findViewById(R.id.countdown_text_view);
 
         // カウントダウンタイマーの作成
-        countDownTimer = new MyCountDownTimer(60000, 1000, countdownTextView);
+        countDownTimer = new MyCountDownTimer(setting.getCountDownTimeMax(), 1000, countdownTextView);
     }
 
     public void changePos() {
 
         hitCheck();
 
-        // Orange
-        orangeX -= orangeSpeed;
-        if (orangeX < 0) {
-            orangeX = screenWidth + 20;
-            orangeY = (float)Math.floor(Math.random() * (frameHeight - orange.getHeight()));
+        // isaki
+        isakiX -= isakiSpeed;
+        if (isakiX < 0) {
+            isakiX = screenWidth + 20;
+            isakiY = (float)Math.floor(Math.random() * (frameHeight - isaki.getHeight()));
         }
-        orange.setX(orangeX);
-        orange.setY(orangeY);
+        isaki.setX(isakiX);
+        isaki.setY(isakiY);
 
-        // Black
-        blackX -= blackSpeed;
-        if (blackX < 0) {
-            blackX = screenWidth + 10;
-            blackY = (float)Math.floor(Math.random() * (frameHeight - black.getHeight()));
+        // tuna
+        tunaX -= tunaSpeed;
+        if (tunaX < 0) {
+            tunaX = screenWidth + 3000;
+            tunaY = (float)Math.floor(Math.random() * (frameHeight - tuna.getHeight()));
         }
-        black.setX(blackX);
-        black.setY(blackY);
+        tuna.setX(tunaX);
+        tuna.setY(tunaY);
 
-        // Pink
-        pinkX -= pinkSpeed;
-        if (pinkX < 0) {
-            pinkX = screenWidth + 10000;
-            pinkY = (float)Math.floor(Math.random() * (frameHeight - pink.getHeight()));
+        // bomb
+        bombX -= bombSpeed;
+        if (bombX < 0) {
+            bombX = screenWidth + 5000;
+            bombY = (float)Math.floor(Math.random() * (frameHeight - bomb.getHeight()));
         }
-        pink.setX(pinkX);
-        pink.setY(pinkY);
+        bomb.setX(bombX);
+        bomb.setY(bombY);
+
+        // eel
+        eelX -= eelSpeed;
+        if (eelX < 0) {
+            eelX = screenWidth + 9000;
+            eelY = (float)Math.floor(Math.random() * (frameHeight - eel.getHeight()));
+        }
+        eel.setX(eelX);
+        eel.setY(eelY);
 
         // kan
         kanX -= kanSpeed;
         if (kanX < 0) {
             kanX = screenWidth + 1000;
-            kanY = (float)Math.floor(Math.random() * (frameHeight - orange.getHeight()));
+            kanY = (float)Math.floor(Math.random() * (frameHeight - tuna.getHeight()));
         }
         kan.setX(kanX);
         kan.setY(kanY);
@@ -174,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
         fukuroX -= fukuroSpeed;
         if (fukuroX < 0) {
             fukuroX = screenWidth + 2000;
-            fukuroY = (float)Math.floor(Math.random() * (frameHeight - orange.getHeight()));
+            fukuroY = (float)Math.floor(Math.random() * (frameHeight - tuna.getHeight()));
         }
         fukuro.setX(fukuroX);
         fukuro.setY(fukuroY);
@@ -199,22 +223,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hitCheck() {
-        // Orange
-        float orangeCenterX = orangeX + orange.getWidth() / 2;
-        float orangeCenterY = orangeY + orange.getHeight() / 2;
-        if (hitStatus(orangeCenterX, orangeCenterY)) {
-            orangeX = -10.0f;
+
+        // isaki
+        float isakiCenterX = isakiX + isaki.getWidth() / 2;
+        float isakiCenterY = isakiY + isaki.getHeight() / 2;
+        if (hitStatus(isakiCenterX, isakiCenterY)) {
+            isakiX = -10.0f;
             score += 10;
             soundPlayer.playHitSound();
         }
 
-        // Pink
-        float pinkCenterX = pinkX + pink.getWidth() / 2;
-        float pinkCenterY = pinkY + pink.getHeight() / 2;
+        // tuna
+        float tunaCenterX = tunaX + tuna.getWidth() / 2;
+        float tunaCenterY = tunaY + tuna.getHeight() / 2;
+        if (hitStatus(tunaCenterX, tunaCenterY)) {
+            tunaX = -10.0f;
+            score += 20;
+            soundPlayer.playHitSound();
+        }
 
-        if (hitStatus(pinkCenterX, pinkCenterY)) {
-            pinkX = -10.0f;
-            score += 30;
+        // eel
+        float eelCenterX = eelX + eel.getWidth() / 2;
+        float eelCenterY = eelY + eel.getHeight() / 2;
+
+        if (hitStatus(eelCenterX, eelCenterY)) {
+            eelX = -10.0f;
+            score += 50;
             soundPlayer.playHitSound();
         }
 
@@ -234,11 +268,11 @@ public class MainActivity extends AppCompatActivity {
             soundPlayer.playDownSound();
         }
 
-        // Black
-        float blackCenterX = blackX + black.getWidth() / 2;
-        float blackCenterY = blackY + black.getHeight() / 2;
+        // bomb
+        float bombCenterX = bombX + bomb.getWidth() / 2;
+        float bombCenterY = bombY + bomb.getHeight() / 2;
 
-        if (hitStatus(blackCenterX, blackCenterY)) {
+        if (hitStatus(bombCenterX, bombCenterY)) {
             // Game Over!
             Gameover();
         }
