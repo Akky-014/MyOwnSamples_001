@@ -1,8 +1,7 @@
 package com.example.akkunscatchthaballs;
 
-import static com.example.akkunscatchthaballs.SettingKt.*;
 
-
+import static com.example.akkunscatchthaballs.data.SettingKt.settingMain;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,6 +16,8 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.akkunscatchthaballs.data.Setting;
 
 import java.util.Timer;
 import java.util.TimerTask;
