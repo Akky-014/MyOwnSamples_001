@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:13  # これを追加
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=django_db
+      - POSTGRES_USER=django_user
+      - POSTGRES_PASSWORD=django_password
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - POSTGRES_USER=django_user  # ここを追加
+      - DEBUG=1
+      - DB_HOST=db
+      - DB_NAME=django_db
+      - DB_USER=django_user
+      - DB_PASS=django_password
+      - DJANGO_SUPERUSER_USERNAME=superuser
+      - DJANGO_SUPERUSER_PASSWORD=superuser
+      - DJANGO_SUPERUSER_EMAIL=admin@example.com
+    command: bash -c "./entrypoint.sh"
+
+volumes:
+  postgres_data:
