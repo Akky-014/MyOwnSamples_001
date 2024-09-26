@@ -29,7 +29,8 @@ def loginfunc(request):
         user = authenticate(username=username2, password=password2)
         if user is not None:
             login(request, user)
-            return redirect('list')
+            # return redirect('list')
+            return redirect('home')
         else:
             return redirect('login')
     return render(request, 'login.html')
@@ -63,6 +64,9 @@ def readfunc(request, pk):
         post.readtext = post.readtext + ' ' + post2
         post.save()
         return redirect('list')
+
+def homefunc(request):
+    return render(request, 'home.html')
 
 class BoardCreate(CreateView):
     template_name = 'create.html'
