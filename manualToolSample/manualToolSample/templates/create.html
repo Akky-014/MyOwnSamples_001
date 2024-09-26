@@ -14,4 +14,8 @@
 {% else %}
 ログインしてください
 {% endif %}
+    <div style="display: flex; justify-content: left">
+        <a href="{% url 'home' %}">ホーム</a>
+        <a style="margin-left: 35px"  href="{% url 'logout' %}">ログアウト</a>
+    </div>
 {% endblock content %}

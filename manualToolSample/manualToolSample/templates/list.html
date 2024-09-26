@@ -19,6 +19,9 @@
         <a class="btn btn-secondary" role="button" aria-disabled="true">既読：{{item.read}}人</a>
     </div>
     {% endfor %}
-    <a href="{% url 'logout' %}">ログアウト</a>
+    <div style="display: flex; justify-content: center">
+        <a href="{% url 'home' %}">ホーム</a>
+        <a style="margin-left: 35px"  href="{% url 'logout' %}">ログアウト</a>
+    </div>
 </div>
 {% endblock content %}
