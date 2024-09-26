@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 
@@ -52,45 +53,31 @@ def goodfunc(request, pk):
     post = BoardModel.objects.get(pk=pk)
     post.good = post.good + 1
     post.save()
-    return redirect('list')
+    return redirect('read_list')
 
 # 既存の関数ベースビューも残す（必要であれば削除）
 def readfunc(request, pk):
     post = BoardModel.objects.get(pk=pk)
     post2 = request.user.get_username()
     if post2 in post.readtext:
-        return redirect('list')
+        return redirect('read_list')
     else:
         post.read += 1
         post.readtext = post.readtext + ' ' + post2
         post.save()
-        return redirect('list')
+        return redirect('read_list')
 
 
+# ログインが必要な場合は、メソッドデコレータを使用
+@method_decorator(login_required, name='dispatch')
 class ReadListView(ListView):
     model = BoardModel  # 表示したいモデルを指定
     template_name = 'list.html'  # 使用するテンプレートファイル
     context_object_name = 'object_list'  # テンプレートで使うコンテキスト変数名
 
-    def get(self, request, *args, **kwargs):
-        # pkを取得して、特定の投稿の既読処理を行う
-        pk = self.kwargs.get('pk')
-        post = BoardModel.objects.get(pk=pk)
-        username = request.user.get_username()
-
-        # 読んだかどうかの確認と処理
-        if username not in post.readtext:
-            post.read += 1
-            post.readtext += f' {username}'
-            post.save()
-
-        # 既存のListViewの処理（投稿リストを表示）
-        return super().get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['message'] = "特定の投稿が既読として登録されました。"  # 必要なら追加の情報をコンテキストに渡す
-        return context
+    # a hrefはget送信だから、get_querysetメソッドがオーバーライドしておくと呼ばれる
+    def get_queryset(self):
+        return BoardModel.objects.all().order_by('-id')  # ここでデータを新しい順に並べる
 
 def homefunc(request):
     return render(request, 'home.html')
@@ -101,4 +88,4 @@ class BoardCreate(CreateView):
     template_name = 'create.html'
     model = BoardModel
     fields = ('title', 'content', 'author', 'images')
-    success_url = reverse_lazy('list')
+    success_url = reverse_lazy('read_list')
