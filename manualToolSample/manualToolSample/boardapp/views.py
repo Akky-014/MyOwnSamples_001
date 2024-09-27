@@ -82,6 +82,9 @@ class ReadListView(ListView):
 def homefunc(request):
     return render(request, 'home.html')
 
+def searchfunc(request):
+    return render(request, 'search.html')
+
 # クラスベースビュー
 # Djangoにおいてビューの機能をクラスとして定義する方法。所謂、少ない記述でCRUDの機能を作れる汎用クラス
 class BoardCreate(CreateView):
