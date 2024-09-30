@@ -2,6 +2,20 @@
 
 {% block customcss %}
 <style>
+    .dropdown {
+        width: 200px;
+        margin: 50px auto;
+    }
+    .dropdown select {
+        width: 100%;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+    .selected-option {
+        margin-top: 20px;
+        text-align: center;
+    }
     .container {
         display: flex;
         justify-content: center; /* 子要素を水平方向に中央揃え */
@@ -63,6 +77,16 @@
     <div class="search-container">
         <div class="search-header">検索画面</div>
         <form method="GET" action="{% url 'read_list' %}">
+            <div class="form-group">
+                <label for="event-name">イベント名</label>
+                <select id="event-name" name="event_name" class="form-control">
+                    <option disabled selected value="">Select an event</option>
+                    <option value="Blue Tooth">Blue Tooth</option>
+                    <option value="Android Auto">Android Auto</option>
+                    <option value="Setting">Setting</option>
+                    <option value="Alexa">Alexa</option>
+                </select>
+            </div>
             <div class="form-group">
                 <label for="package-name">Package Name</label>
                 <input type="text" id="package-name" name="package_name" placeholder="Enter package name">
