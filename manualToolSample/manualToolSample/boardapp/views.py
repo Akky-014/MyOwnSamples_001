@@ -92,3 +92,8 @@ class BoardCreate(CreateView):
     model = BoardModel
     fields = ('title', 'content', 'author', 'images')
     success_url = reverse_lazy('read_list')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)  # 親クラスの初期化を呼び出す
+        # ここでカスタム初期化処理を追加できる
+        print("BoardCreate instance is being initialized")
