@@ -6,7 +6,8 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 
-from .models import BoardModel
+from .models import BoardModel, EventModel
+
 
 # Create your views here.
 def signupfunc(request):
@@ -46,7 +47,8 @@ def logoutfunc(request):
     return redirect('login')
 
 def detailfunc(request, pk):
-    object= BoardModel.objects.get(pk=pk)
+    # object= BoardModel.objects.get(pk=pk)
+    object = EventModel.objects.get(pk=pk)
     return render(request, 'detail.html', {'object': object})
 
 def goodfunc(request, pk):
@@ -71,13 +73,14 @@ def readfunc(request, pk):
 # ログインが必要な場合は、メソッドデコレータを使用
 @method_decorator(login_required, name='dispatch')
 class ReadListView(ListView):
-    model = BoardModel  # 表示したいモデルを指定
+    # model = BoardModel  # 表示したいモデルを指定
+    model = EventModel  # 表示したいモデルを指定
     template_name = 'list.html'  # 使用するテンプレートファイル
     context_object_name = 'object_list'  # テンプレートで使うコンテキスト変数名
 
     # a hrefはget送信だから、get_querysetメソッドがオーバーライドしておくと呼ばれる
     def get_queryset(self):
-        return BoardModel.objects.all().order_by('-id')  # ここでデータを新しい順に並べる
+        return EventModel.objects.all().order_by('-id')  # ここでデータを新しい順に並べる
 
 def homefunc(request):
     return render(request, 'home.html')
