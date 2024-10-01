@@ -13,11 +13,10 @@
 <div class ='container'>
     {% for item in object_list %}
     <div class="alert alert-success" role="alert">
-        <p>イベント名：<a href="{% url 'detail' item.pk %}">{{item.eventName}}</a></p>
-        <p>package Name：{{item.packageName}}</p>
-        <p>component Name：{{item.componentName}}</p>
-        <p>component Name：{{item.componentName}}</p>
-        <p>nodeView Id：{{item.nodeViewId}}</p>
+        <p>タイトル：<a href="{% url 'detail' item.pk %}">{{item.title}}</a></p>
+        <p>投稿者：{{item.author}}</p>
+        <a class="btn btn-primary" role="button" aria-disabled="true">いいね：{{item.good}}</a>
+        <a class="btn btn-secondary" role="button" aria-disabled="true">既読：{{item.read}}人</a>
     </div>
     {% endfor %}
     <div style="display: flex; justify-content: center">

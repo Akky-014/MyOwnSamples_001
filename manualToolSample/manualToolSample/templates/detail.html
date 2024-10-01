@@ -12,12 +12,15 @@
 {% block content %}
 <div class ='container'>
     <div class="alert alert-success" role="alert">
-        <p>タイトル：{{object.title}}</p>
-        <p>投稿者：{{object.author}}</p>
-        <p>内容：{{object.content}}</p>
-        <p><img src='{{object.images.url}}' width=300></p>
-        <a href="{% url 'good' object.pk %}" class="btn btn-primary" role="button" aria-disabled="true">いいねする</a>
-        <a href="{% url 'read' object.pk %}" class="btn btn-secondary" role="button" aria-disabled="true">既読にする</a>
+        <p>イベント名：{{object.eventName}}</p>
+        <p>packageName：{{object.packageName}}</p>
+        <p>componentName：{{object.componentName}}</p>
+        <p>nodeViewId：{{object.nodeViewId}}</p>
+        <p>nodeAddress：{{object.nodeAddress}}</p>
+        {% if object.images %}
+            <p><img src='{{ object.images.url }}' width=300></p>
+        {% endif %}
+        <p>説明：{{object.detail}}</p>
     </div>
 </div>
 {% endblock content %}
