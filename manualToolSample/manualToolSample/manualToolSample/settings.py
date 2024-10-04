@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'boardapp',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -76,15 +77,29 @@ WSGI_APPLICATION = 'manualToolSample.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'django_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         # 'PASSWORD': 'superuser',
+#         # 'HOST': '127.0.0.1',  # または 'localhost'
+#         'HOST': 'db',  # docker-composeのサービス名'db'を指定
+#         'PORT': '5432',
+#     }
+# }
+
+import os
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_db',
-        'USER': 'postgres',
-        # 'PASSWORD': 'postgres',
-        'PASSWORD': 'superuser',
-        'HOST': '127.0.0.1',  # または 'localhost'
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME', 'django_db'),  # 環境変数からデータベース名を取得
+        'USER': os.getenv('DB_USER', 'postgres'),  # 環境変数からユーザー名を取得
+        'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),  # 環境変数からパスワードを取得
+        'HOST': os.getenv('DB_HOST', 'localhost'),  # 環境変数からホストを取得
+        'PORT': '5432',  # PostgreSQLのデフォルトポート
     }
 }
 
