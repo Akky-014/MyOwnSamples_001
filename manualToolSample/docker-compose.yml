@@ -19,6 +19,7 @@ services:
       python manage.py makemigrations &&
       python manage.py migrate &&
       python manage.py shell -c 'from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser(\"admin\", \"admin@example.com\", \"adminpassword\") if not User.objects.filter(username=\"admin\").exists() else print(\"Superuser already exists\")' &&
+      python /usr/src/app/insert_data.py &&
       python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./manualToolSample:/usr/src/app
@@ -33,6 +34,7 @@ services:
       - DJANGO_SUPERUSER_USERNAME=admin  # 直接値を記述
       - DJANGO_SUPERUSER_EMAIL=admin@example.com  # 直接値を記述
       - DJANGO_SUPERUSER_PASSWORD=adminpassword  # 直接値を記述
+      - DJANGO_SETTINGS_MODULE=manualToolSample.settings  # プロジェクトの設定ファイルを指定
     depends_on:
       - db
 
