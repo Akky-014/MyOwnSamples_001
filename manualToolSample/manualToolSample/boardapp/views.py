@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 
-from .models import BoardModel, EventModel
+from .models import EventModel
 
 
 # Create your views here.
@@ -37,11 +37,6 @@ def loginfunc(request):
             return redirect('login')
     return render(request, 'login.html')
 
-@login_required
-def listfunc(request):
-    object_list = BoardModel.objects.all().order_by('-id')  # 作成された順（新しい順）に並べ替え
-    return render(request, 'list.html', {'object_list': object_list})
-
 def logoutfunc(request):
     logout(request)
     return redirect('login')
@@ -50,25 +45,6 @@ def detailfunc(request, pk):
     # object= BoardModel.objects.get(pk=pk)
     object = EventModel.objects.get(pk=pk)
     return render(request, 'detail.html', {'object': object})
-
-def goodfunc(request, pk):
-    post = BoardModel.objects.get(pk=pk)
-    post.good = post.good + 1
-    post.save()
-    return redirect('read_list')
-
-# 既存の関数ベースビューも残す（必要であれば削除）
-def readfunc(request, pk):
-    post = BoardModel.objects.get(pk=pk)
-    post2 = request.user.get_username()
-    if post2 in post.readtext:
-        return redirect('read_list')
-    else:
-        post.read += 1
-        post.readtext = post.readtext + ' ' + post2
-        post.save()
-        return redirect('read_list')
-
 
 # ログインが必要な場合は、メソッドデコレータを使用
 @method_decorator(login_required, name='dispatch')
@@ -92,8 +68,8 @@ def searchfunc(request):
 # Djangoにおいてビューの機能をクラスとして定義する方法。所謂、少ない記述でCRUDの機能を作れる汎用クラス
 class BoardCreate(CreateView):
     template_name = 'create.html'
-    model = BoardModel
-    fields = ('title', 'content', 'author', 'images')
+    model = EventModel
+    fields = ('eventName', 'packageName', 'componentName', 'nodeViewId', 'nodeAddress', 'detail')
     success_url = reverse_lazy('read_list')
 
     def __init__(self, *args, **kwargs):

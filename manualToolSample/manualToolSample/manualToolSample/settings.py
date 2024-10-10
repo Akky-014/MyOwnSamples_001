@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os.path
 from pathlib import Path
+import sys
 
 from django.conf.global_settings import MEDIA_ROOT, STATICFILES_DIRS, LOGIN_URL
 
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'manualToolSample.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'manualToolSample', 'templates')],  # 正しいテンプレートパス
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # 正しいテンプレートディレクトリに修正
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,19 +78,6 @@ WSGI_APPLICATION = 'manualToolSample.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'django_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         # 'PASSWORD': 'superuser',
-#         # 'HOST': '127.0.0.1',  # または 'localhost'
-#         'HOST': 'db',  # docker-composeのサービス名'db'を指定
-#         'PORT': '5432',
-#     }
-# }
-
 import os
 
 DATABASES = {
@@ -102,6 +90,15 @@ DATABASES = {
         'PORT': '5432',  # PostgreSQLのデフォルトポート
     }
 }
+
+# テスト環境のためのデータベース設定
+if 'test' in sys.argv:  # pytest実行時
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',  # メモリ内データベース
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
