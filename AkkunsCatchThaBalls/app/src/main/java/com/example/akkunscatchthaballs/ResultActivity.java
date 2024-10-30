@@ -40,6 +40,18 @@ public class ResultActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
+    // スコアをセーブするボタンがクリックされたときの処理
+    public void saveScore(View view) {
+        // scoreLabel からスコアの値を取得
+        TextView scoreLabel = findViewById(R.id.scoreLabel);
+        String score = scoreLabel.getText().toString();
+
+        // Intent を使用して scoreSaveActivity にスコアを渡す
+        Intent intent = new Intent(this, ScoreSaveActivity.class);
+        intent.putExtra("score", score); // スコアを Intent に追加
+        startActivity(intent); // ScoreSaveActivity を起動
+    }
+
     public void backToStart(View view) {
         startActivity(new Intent(getApplicationContext(), StartActivity.class));
     }
