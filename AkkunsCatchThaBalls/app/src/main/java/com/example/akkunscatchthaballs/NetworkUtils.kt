@@ -36,7 +36,7 @@ object NetworkUtils {
     // 実際にサーバーからデータを取得するサスペンド関数
     private suspend fun fetchTop5FromServer(): String {
         val request = Request.Builder()
-            .url("http://192.168.3.40:5000/top5")
+            .url("http://52.199.204.161:5000/top5")
             .build()
 
         // OkHttpを使って非同期でリクエストを実行
@@ -71,7 +71,7 @@ object NetworkUtils {
         val requestBody = jsonInputString.toRequestBody(mediaType)
 
         val request = Request.Builder()
-            .url("http://192.168.3.40:5000/save_score")
+            .url("http://52.199.204.161:5000/save_score")
             .post(requestBody)
             .build()
 
